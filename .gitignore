@@ -1,0 +1,13 @@
+*.pyc
+local_settings.py
+apache
+
+*.swp
+.Python
+
+lib
+src
+bin
+include
+share
+
