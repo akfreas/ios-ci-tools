@@ -13,6 +13,10 @@ import biplist
 def main():
     arg_dict = command_line_controller()
 
+    print os.sys("xcodebuild -showsdks")
+    print os.sys("whereis xcodebuild")
+    print os.listdir("/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs")
+
 
     if arg_dict['target'] == None or arg_dict['configuration'] == None:
         raise Exception("You must specify at least a target and a configuration to build through the command line or by setting the DIST_TARGET and DIST_CONFIGURATION environment variables")
