@@ -13,8 +13,8 @@ import biplist
 def main():
     arg_dict = command_line_controller()
 
-    print os.sys("xcodebuild -showsdks")
-    print os.sys("whereis xcodebuild")
+    print os.system("xcodebuild -showsdks")
+    print os.system("whereis xcodebuild")
     print os.listdir("/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs")
 
 
