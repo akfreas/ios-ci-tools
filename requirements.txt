@@ -1,2 +1,4 @@
+biplist==0.6
 pystache==0.5.3
+six==1.4.1
 wsgiref==0.1.2

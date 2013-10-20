@@ -1,30 +1,28 @@
 .PHONY: devbuild db distbuild
 
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages
-
 devbuild db:
 	# Builds the devbuild aggregate target
-	./DevBuild.py --target=${TARGET} --configuration=${CONFIG}	
+	${COMMON_SCRIPTS_HOME}/DevBuild.py --target=${TARGET} --configuration=${CONFIG}	
 
 distbuild:
 	#Builds the Distribution build target
-	python ./DistributionBuild.py
-	. ./EnterprisePackageApplication.sh
+	python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py
+	. ${COMMON_SCRIPTS_HOME}/EnterprisePackageApplication.sh
 
 testflightdist:
-	python ./DistributionBuild.py
-	. ./TestFlightDistribute.sh
+	python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py
+	. ${COMMON_SCRIPTS_HOME}/TestFlightDistribute.sh
 
 alldist:
-	python ./DistributionBuild.py
-	. ./EnterprisePackageApplication.sh
-	. ./TestFlightDistribute.sh
+	python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py
+	. ${COMMON_SCRIPTS_HOME}/EnterprisePackageApplication.sh
+	. ${COMMON_SCRIPTS_HOME}/TestFlightDistribute.sh
 
 utest:
-	./RunUnitTests.py --target=${TARGET} --configuration=${CONFIG}	
+	${COMMON_SCRIPTS_HOME}/RunUnitTests.py --target=${TARGET} --configuration=${CONFIG}	
 
 uitest:
-	./RunUIAutomationTests.py \
+	${COMMON_SCRIPTS_HOME}/RunUIAutomationTests.py \
 		--configuration=${CONFIGURATION} \
 	   	--target=${TARGET} \
 	   	--preprocessor-definitions=${PREPROCESSOR_DEFINITIONS} \
