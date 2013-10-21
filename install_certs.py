@@ -30,9 +30,9 @@ cert_zip.extractall(temp_path)
 
 provisioning_profile_dir = "~/Library/MobileDevice/Provisioning Profiles" 
 os.system("security create-keychain -p travis ios-build.keychain")
-os.system("security import %s/apple.cer ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % temp_path)
-os.system("security import %s/iPhone-distribution.cer -k ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % temp_path)
-os.system("security import %s/iPhone-distribution.p12 -k ~/Library/Keychains/ios-build.keychain -P %s -T /usr/bin/codesign" % (temp_path, key_password))
+os.system("security import %s/certs/apple.cer ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % temp_path)
+os.system("security import %s/certs/iPhone-distribution.cer -k ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % temp_path)
+os.system("security import %s/certs/iPhone-distribution.p12 -k ~/Library/Keychains/ios-build.keychain -P %s -T /usr/bin/codesign" % (temp_path, key_password))
 os.mkdir(provisioning_profile_dir)
 shutil.copy("iOS_Team_Provisioning_Profile_48L8E2ESF8comridechargedrivermagic.mobileprovision", provisioning_profile_dir) 
 os.rmdir(temp_path)
