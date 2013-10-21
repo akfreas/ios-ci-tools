@@ -17,7 +17,7 @@ iphone_sdk_dir = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.
 def is_sdk_installed(sdk_string):
 
     formatted_sdk = "%s.sdk" % sdk_string
-    sdk_list = os.system(iphone_sdk_dir)
+    sdk_list = os.listdir(iphone_sdk_dir)
 
     format_sdk = lambda x: x.replace(".sdk", "").lower()
 
