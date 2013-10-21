@@ -10,7 +10,7 @@ import argparse
 
 aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
 aws_secret_access_key = os.getenv("AWS_SECRET_KEY")
-s3_bucket_name = "ios-sdks"
+s3_bucket_name = "travis-assets"
 
 iphone_sdk_dir = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs"
 
@@ -39,7 +39,6 @@ def install_sdk(sdk_string):
     sdk_key = bucket.get_key(formatted_sdk_key)
 
     temp_filename = mktemp()
-    
     temp_file = open(temp_filename, "w")
 
     sdk_key.get_contents_to_file(temp_file)#, cb=print_progress, num_cb=10)
@@ -54,6 +53,8 @@ def install_sdk(sdk_string):
 
 
     zipfile.extractall(iphone_sdk_dir)
+    zipfile.close()
+    os.unlink(temp_filename)
     
 
 def print_progress(progress, size):
