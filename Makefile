@@ -10,7 +10,7 @@ distbuild:
 	. ${COMMON_SCRIPTS_HOME}/EnterprisePackageApplication.sh
 
 travisdist:
-	. ${COMMON_SCRIPTS_HOME}/install_ios_sdks.py --sdk ${DIST_SDK}
+	. ${COMMON_SCRIPTS_HOME}/install_ios_sdk.py --sdk ${DIST_SDK}
 	python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py
 	. ${COMMON_SCRIPTS_HOME}/EnterprisePackageApplication.sh
 
