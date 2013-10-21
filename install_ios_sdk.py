@@ -8,8 +8,8 @@ from zipfile import ZipFile
 from tempfile import mktemp, mkdtemp
 import argparse
 
-aws_access_key_id = "AKIAIS5NHCFOO3QE6GNQ"
-aws_secret_access_key="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"
+aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
+aws_secret_access_key = os.getenv("AWS_SECRET_KEY")
 s3_bucket_name = "ios-sdks"
 
 iphone_sdk_dir = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs"
@@ -31,7 +31,6 @@ def is_sdk_installed(sdk_string):
 def install_sdk(sdk_string):
 
     conn = S3Connection(aws_access_key_id, aws_secret_access_key)
-    print conn.get_all_buckets()
     bucket = conn.get_bucket(s3_bucket_name)
 
     formatted_sdk_key = "%s.zip" % sdk_string
