@@ -36,4 +36,3 @@ os.system("security import %s/certs/iPhone-distribution.cer -k ~/Library/Keychai
 os.system("security import %s/certs/iPhone-distribution.p12 -k ~/Library/Keychains/ios-build.keychain -P %s -T /usr/bin/codesign" % (temp_path, key_password))
 os.makedirs(provisioning_profile_dir)
 shutil.copy("%s/certs/iOS_Team_Provisioning_Profile_48L8E2ESF8comridechargedrivermagic.mobileprovision" % temp_path, provisioning_profile_dir) 
-os.rmdir(temp_path)
