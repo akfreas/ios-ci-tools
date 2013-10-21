@@ -27,7 +27,6 @@ temp_zip_file.close()
 zip_file = ZipFile(temp_zip_path)
 
 common_scripts = os.getenv("COMMON_SCRIPTS_HOME")
-import pdb;pdb.set_trace()
 zip_file.extractall("%s/lib/python2.7/site-packages" % common_scripts)
 zip_file.close()
 
