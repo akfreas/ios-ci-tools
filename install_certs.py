@@ -12,6 +12,7 @@ aws_secret_access_key = os.getenv("AWS_SECRET_KEY")
 key_password = os.getenv("KEY_PASSWORD")
 s3_bucket_name = "travis-assets"
 certs_key_name = "certs.zip"
+home_dir = os.getenv("HOME")
 
 
 
@@ -28,11 +29,11 @@ key.get_contents_to_filename(cert_zip_path)
 cert_zip = ZipFile(cert_zip_path)
 cert_zip.extractall(temp_path)
 
-provisioning_profile_dir = "~/Library/MobileDevice/Provisioning Profiles" 
+provisioning_profile_dir = "%s/Library/MobileDevice/Provisioning Profiles" % home_dir 
 os.system("security create-keychain -p travis ios-build.keychain")
 os.system("security import %s/certs/apple.cer ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % temp_path)
 os.system("security import %s/certs/iPhone-distribution.cer -k ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % temp_path)
 os.system("security import %s/certs/iPhone-distribution.p12 -k ~/Library/Keychains/ios-build.keychain -P %s -T /usr/bin/codesign" % (temp_path, key_password))
-os.mkdir(provisioning_profile_dir)
+os.makedirs(provisioning_profile_dir)
 shutil.copy("iOS_Team_Provisioning_Profile_48L8E2ESF8comridechargedrivermagic.mobileprovision", provisioning_profile_dir) 
 os.rmdir(temp_path)
