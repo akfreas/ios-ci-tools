@@ -38,4 +38,4 @@ os.system("security import %s/certs/iPhone-distribution.p12 -k ~/Library/Keychai
 os.makedirs(provisioning_profile_dir)
 shutil.copy("%s/certs/DriverMagic.mobileprovision" % temp_path, provisioning_profile_dir) 
 os.makedirs(assets_dir)
-shutil.copy("%s/certs/DM-Config.xcconfig", assets_dir)
+shutil.copy("%s/certs/DM-Config.xcconfig" % temp_path, assets_dir)
