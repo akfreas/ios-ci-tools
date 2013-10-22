@@ -6,6 +6,7 @@ from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 from zipfile import ZipFile
 from tarfile import TarFile
+import tarfile
 from tempfile import mktemp, mkdtemp
 import argparse
 
@@ -48,7 +49,7 @@ def install_sdk(sdk_string):
 
     temp_file.close()
 
-    zipfile = TarFile(temp_filename)
+    zipfile = tarfile.open(temp_filename, mode="r:gz")
 
     temp_iphone_sdk_dir = mkdtemp()
 
