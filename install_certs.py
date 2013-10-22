@@ -31,9 +31,7 @@ cert_zip.extractall(temp_path)
 assets_dir = "~/assets"
 
 print os.listdir("%s/certs" % temp_path)
-shutil.copy("%s/certs/DM-Config.xcconfig" % temp_path, assets_dir)
 
-print os.listdir(assets_dir)
 
 provisioning_profile_dir = "%s/Library/MobileDevice/Provisioning Profiles" % home_dir 
 os.system("security create-keychain -p travis ios-build.keychain")
@@ -44,3 +42,5 @@ os.makedirs(provisioning_profile_dir)
 shutil.copy("%s/certs/DriverMagic.mobileprovision" % temp_path, provisioning_profile_dir) 
 os.makedirs(assets_dir)
 
+shutil.copy("%s/certs/DM-Config.xcconfig" % temp_path, assets_dir)
+print os.listdir(assets_dir)
