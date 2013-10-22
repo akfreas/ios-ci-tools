@@ -30,7 +30,7 @@ cert_zip = ZipFile(cert_zip_path)
 cert_zip.extractall(temp_path)
 assets_dir = "~/assets"
 
-print os.listdir(temp_path)
+print os.listdir("%s/certs" % temp_path)
 shutil.copy("%s/certs/DM-Config.xcconfig" % temp_path, assets_dir)
 
 print os.listdir(assets_dir)
