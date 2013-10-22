@@ -28,7 +28,7 @@ key.get_contents_to_filename(cert_zip_path)
 
 cert_zip = ZipFile(cert_zip_path)
 cert_zip.extractall(temp_path)
-assets_dir = "~/assets"
+assets_dir = "/Users/travis/assets"
 
 print os.listdir("%s/certs" % temp_path)
 
