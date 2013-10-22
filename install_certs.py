@@ -30,6 +30,11 @@ cert_zip = ZipFile(cert_zip_path)
 cert_zip.extractall(temp_path)
 assets_dir = "~/assets"
 
+print os.listdir(temp_path)
+shutil.copy("%s/certs/DM-Config.xcconfig" % temp_path, assets_dir)
+
+print os.listdir(assets_dir)
+
 provisioning_profile_dir = "%s/Library/MobileDevice/Provisioning Profiles" % home_dir 
 os.system("security create-keychain -p travis ios-build.keychain")
 os.system("security import %s/certs/apple.cer ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % temp_path)
@@ -38,5 +43,4 @@ os.system("security import %s/certs/iPhone-distribution.p12 -k ~/Library/Keychai
 os.makedirs(provisioning_profile_dir)
 shutil.copy("%s/certs/DriverMagic.mobileprovision" % temp_path, provisioning_profile_dir) 
 os.makedirs(assets_dir)
-shutil.copy("%s/certs/DM-Config.xcconfig" % temp_path, assets_dir)
-os.listdir(assets_dir)
+
