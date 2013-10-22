@@ -5,6 +5,7 @@ import sys
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 from zipfile import ZipFile
+from tarfile import TarFile
 from tempfile import mktemp, mkdtemp
 import argparse
 
@@ -33,7 +34,7 @@ def install_sdk(sdk_string):
     conn = S3Connection(aws_access_key_id, aws_secret_access_key)
     bucket = conn.get_bucket(s3_bucket_name)
 
-    formatted_sdk_key = "%s.zip" % sdk_string
+    formatted_sdk_key = "%s.tar" % sdk_string
 
 
     sdk_key = bucket.get_key(formatted_sdk_key)
@@ -47,7 +48,7 @@ def install_sdk(sdk_string):
 
     temp_file.close()
 
-    zipfile = ZipFile(temp_filename)
+    zipfile = TarFile(temp_filename)
 
     temp_iphone_sdk_dir = mkdtemp()
 
