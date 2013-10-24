@@ -1,13 +1,15 @@
 .PHONY: devbuild db distbuild
 
+export PYTHONPATH=${COMMON_SCRIPTS_HOME}/lib/python2.7/site-packages
+
 devbuild db:
 	# Builds the devbuild aggregate target
 	${COMMON_SCRIPTS_HOME}/DevBuild.py --target=${TARGET} --configuration=${CONFIG}	
 
 distbuild:
 	#Builds the Distribution build target
-	python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py
-	. ${COMMON_SCRIPTS_HOME}/EnterprisePackageApplication.sh
+	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py
+	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/enterprise_package_application.py
 
 travisdist:
 	/usr/bin/env
