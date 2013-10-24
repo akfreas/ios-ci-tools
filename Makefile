@@ -9,7 +9,7 @@ devbuild db:
 distbuild:
 	#Builds the Distribution build target
 	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py
-	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/enterprise_package_application.py
+	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/package_and_upload_app.py
 
 travisdist:
 	/usr/bin/env
