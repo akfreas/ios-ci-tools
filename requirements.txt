@@ -1,6 +1,10 @@
-biplist==0.6
-pystache==0.5.3
+GitPython==0.3.2.RC1
 boto==2.15.0
+async==0.6.1
+biplist==0.6
+gitdb==0.5.4
+pystache==0.5.3
 requests==2.0.1
 six==1.4.1
+smmap==0.8.2
 wsgiref==0.1.2
