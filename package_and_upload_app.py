@@ -36,7 +36,7 @@ def package_app(sdk, app_path, app_name):
     app_package = open(ipa_path)
     return app_package
     
-def create_app(product_name, note, spout_url, tags="") :
+def create_app(product_name, note, spout_url, tags=[]) :
 
     app_create_url = "%s/app/create" % spout_url
 
@@ -105,7 +105,7 @@ def main():
     for app in apps:
 
         tag = os.getenv("SPOUT_TAG")
-        app_id = create_app(product_name, note, spout_url, tag)
+        app_id = create_app(product_name, note, spout_url, [tag])
         app_package = package_app("iphoneos", app['path'], app['name'])
         upload_asset_for_app(app_id, app_package, spout_url, is_primary=True)
         print app_id
