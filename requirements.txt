@@ -1,5 +1,6 @@
 biplist==0.6
-boto==2.15.0
 pystache==0.5.3
+boto==2.15.0
+requests==2.0.1
 six==1.4.1
 wsgiref==0.1.2
