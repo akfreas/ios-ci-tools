@@ -104,7 +104,7 @@ def main():
     note = compile_note_from_git_head()
     for app in apps:
 
-        tag = git.Repo(os.getcwd()).active_branch.name
+        tag = os.getenv("SPOUT_TAG")
         app_id = create_app(product_name, note, spout_url, tag)
         app_package = package_app("iphoneos", app['path'], app['name'])
         upload_asset_for_app(app_id, app_package, spout_url, is_primary=True)
