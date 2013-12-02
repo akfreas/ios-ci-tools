@@ -35,7 +35,7 @@ cert_zip.extractall(assets_path)
 provisioning_profile_dir = "%s/Library/MobileDevice/Provisioning Profiles" % home_dir 
 os.makedirs(provisioning_profile_dir)
 os.system("security create-keychain -p travis ios-build.keychain")
-
+os.chdir(assets_path)
 for asset_file in os.listdir(assets_path):
     file_ext = os.path.splitext(asset_file)[1]
     abs_path = os.path.abspath(asset_file)
