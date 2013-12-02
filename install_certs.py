@@ -10,8 +10,8 @@ from tempfile import mkdtemp
 aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
 aws_secret_access_key = os.getenv("AWS_SECRET_KEY")
 key_password = os.getenv("KEY_PASSWORD")
-s3_bucket_name = "travis-assets"
-certs_key_name = "certs.zip"
+s3_bucket_name = os.getenv("S3_CERT_BUCKET")
+certs_key_name = os.getenv("S3_CERT_KEY")
 home_dir = os.getenv("HOME")
 
 
@@ -22,26 +22,27 @@ bucket = conn.get_bucket(s3_bucket_name)
 
 key = bucket.get_key(certs_key_name)
 
-temp_path = mkdtemp()
-cert_zip_path = "%s/%s" % (temp_path, key.name)
-key.get_contents_to_filename(cert_zip_path)
+assets_path = "%s/assets" % home_dir
+os.mkdir(assets_path)
+zip_path = "%s/%s" % (assets_path, key.name)
+key.get_contents_to_filename(zip_path)
 
-cert_zip = ZipFile(cert_zip_path)
-cert_zip.extractall(temp_path)
-assets_dir = "/Users/travis/assets"
+cert_zip = ZipFile(zip_path)
+cert_zip.extractall(assets_path)
 
-print os.listdir("%s/certs" % temp_path)
 
 
 provisioning_profile_dir = "%s/Library/MobileDevice/Provisioning Profiles" % home_dir 
-os.system("security create-keychain -p travis ios-build.keychain")
-os.system("security import %s/certs/AppleIncRootCertificate.cer -k ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % temp_path)
-os.system("security import %s/certs/apple.cer -k ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % temp_path)
-os.system("security import %s/certs/iPhone-distribution.cer -k ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % temp_path)
-os.system("security import %s/certs/iPhone-distribution.p12 -k ~/Library/Keychains/ios-build.keychain -P %s -T /usr/bin/codesign" % (temp_path, key_password))
 os.makedirs(provisioning_profile_dir)
-shutil.copy("%s/certs/DriverMagic.mobileprovision" % temp_path, provisioning_profile_dir) 
-os.makedirs(assets_dir)
+os.system("security create-keychain -p travis ios-build.keychain")
 
-shutil.copy("%s/certs/DM-Config.xcconfig" % temp_path, assets_dir)
-print os.listdir(assets_dir)
+for asset_file in os.listdir(assets_path):
+    file_ext = os.path.splitext(asset_file)[1]
+    abs_path = os.path.abspath(asset_file)
+    if file_ext == ".p12":
+        os.system("security import %s -k ~/Library/Keychains/ios-build.keychain -P %s -T /usr/bin/codesign" % (abs_path, key_password))
+    else if file_ext == ".cer":
+        os.system("security import %s -k ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % abs_path)
+    else if file_ext == ".mobileprovision":
+        shutil.copy(abs_path, provisioning_profile_dir) 
+
