@@ -22,11 +22,6 @@ def create_build_command(commands = ['build'], preprocessor_definitions=None,  *
 
 def format_file_with_vars(the_file, template_vars):
 
-    try:
-        os.listdir("/Users/travis")
-        os.listdir("/Users/travis/assetss")
-    except:
-        pass
     opened_file = open(the_file, "r")
     formatted_file = pystache.render(opened_file.read(), template_vars)
     temp_file_descriptor, temp_file_path = mkstemp()

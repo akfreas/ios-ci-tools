@@ -16,11 +16,11 @@ for APP_FILENAME in build/Release-iphoneos/*.app; do
     curl http://testflightapp.com/api/builds.json \
     -F file=@$IPA_FILENAME \
     -F dsym=@$DSYM_FILENAME \
-    -F api_token='2727f6c23c2c19d8e023942f55964adb_MzIxNTQyMjAxMi0wMi0xNyAwNDozNToxMi4xODMzMTU'  \
-    -F team_token='236a691740532ae7f942686a5f800f09_MjAzNzExMjAxMy0wMy0yNSAxNDowNzo1NC4zMTM2NjA' \
+    -F api_token=$TESTFLIGHT_API_TOKEN  \
+    -F team_token=$TESTFLIGHT_TEAM_TOKEN \
     -F notes="$BUILD_NUMBER - $build_msg" \
     -F notify=True \
-    -F distribution_lists='Beta Testers'
+    -F distribution_lists=$TESTFLIGHT_DISTRIBUTION_LISTS
     
     
 done

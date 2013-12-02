@@ -13,7 +13,6 @@ distbuild:
 
 
 travisdist:
-	/usr/bin/env
 	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/setup_site_packages.py
 	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/install_ios_sdk.py --sdk ${DIST_SDK}
 	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py
