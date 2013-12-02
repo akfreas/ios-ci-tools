@@ -40,9 +40,9 @@ for asset_file in os.listdir(assets_path):
     file_ext = os.path.splitext(asset_file)[1]
     abs_path = os.path.abspath(asset_file)
     if file_ext == ".p12":
-        os.system("security import %s -k ~/Library/Keychains/ios-build.keychain -P %s -T /usr/bin/codesign" % (abs_path, key_password))
+        os.system("security import '%s' -k ~/Library/Keychains/ios-build.keychain -P %s -T /usr/bin/codesign" % (abs_path, key_password))
     elif file_ext == ".cer":
-        os.system("security import %s -k ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % abs_path)
+        os.system("security import '%s' -k ~/Library/Keychains/ios-build.keychain -T /usr/bin/codesign" % abs_path)
     elif file_ext == ".mobileprovision":
         shutil.copy(abs_path, provisioning_profile_dir) 
 
