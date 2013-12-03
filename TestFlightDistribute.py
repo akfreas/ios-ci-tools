@@ -85,7 +85,7 @@ def compile_note_from_git_head():
     return note
 
 def main():
-    archive_path = os.popen("find /Users/akfreas/Library/Developer/Xcode/Archives -type d -Btime -60m -name '*.xcarchive' | head -1").read().strip()
+    archive_path = os.popen("find ~/Library/Developer/Xcode/Archives -type d -Btime -60m -name '*.xcarchive' | head -1").read().strip()
     print archive_path
     api_token = os.getenv("TESTFLIGHT_API_TOKEN")
     team_token = os.getenv("TESTFLIGHT_TEAM_TOKEN")
