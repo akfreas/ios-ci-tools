@@ -52,7 +52,7 @@ def package_app(sdk, app_path, app_name):
 
     temp_dir = tempfile.mkdtemp()
     ipa_path = "%s/%s.ipa" % (temp_dir, app_name)
-    xc_run_command = "xcrun -sdk %s PackageApplication -v '%s' -o %s" % (sdk, app_path, ipa_path)
+    xc_run_command = "xcrun -sdk %s PackageApplication '%s' -o %s" % (sdk, app_path, ipa_path)
     print xc_run_command
     command = os.system(xc_run_command)
     app_package = open(ipa_path)
