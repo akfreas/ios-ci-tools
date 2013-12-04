@@ -5,7 +5,7 @@ from zipfile import ZipFile
 from tempfile import mktemp
 import os
 
-bucket_name = "travis-assets"
+bucket_name = os.getenv("S3_CERT_BUCKET")
 
 access_key = os.getenv("AWS_ACCESS_KEY_ID")
 secret_key = os.getenv("AWS_SECRET_KEY")
