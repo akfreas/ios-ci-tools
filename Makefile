@@ -4,7 +4,7 @@ export PYTHONPATH=${COMMON_SCRIPTS_HOME}/lib/python2.7/site-packages
 
 distbuild:
 	#Builds the Distribution build target
-	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py
+	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py build
 	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/package_and_upload_app.py
 
 

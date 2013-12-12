@@ -42,8 +42,13 @@ def create_app(product_name, note, spout_url, tags=[]) :
 
     create_dict = {'note' : note,
             'device_type' : 'IOS',
-            'product' : product_name,
-            'tags' : ",".join(tags),}
+            'product' : product_name}
+
+    has_no_nonetype = reduce(lambda x, y: x != False and y != False, map(lambda x: x != None, tags))
+
+    if tags is not None and len(tags) > 0 and has_no_nonetype:
+        import pdb;pdb.set_trace()
+        create_dict['tags'] = ",".join(tags)
 
 
     app_response = requests.post(app_create_url, create_dict)

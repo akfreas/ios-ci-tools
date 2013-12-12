@@ -2,12 +2,13 @@
 import os
 from tempfile import mkstemp
 from Foundation import NSDictionary
+import xml.etree.ElementTree as ET
 import re
 import pystache
 
 def create_build_command(commands = ['build'], preprocessor_definitions=None,  **kwargs) :
 
-    build_command = "xcodebuild"
+    build_command = "xctool"
     for flag in kwargs.keys():
         build_command += " -%s %s " % (flag, kwargs[flag])
 
@@ -46,10 +47,21 @@ def brand_icon(icon_path, version, tag_name):
 
 
 
-def build_settings_dict(pbxfile, native_target, configuration):
+def build_settings_dict(pbxfile, shared_scheme, build_action, configuration):
+
+    action_scheme_dict = {'build' : 'BuildAction', 'test' : 'TestAction', 'archive' : 'ArchiveAction'}
+
+    scheme_dir = "%s/xcshareddata/xcschemes/%s.xcscheme" % (os.path.dirname(os.path.realpath(pbxfile)), shared_scheme)
+
+    scheme_xml = ET.parse(scheme_dir)
+
+    action_node = scheme_xml.getiterator(action_scheme_dict[build_action])[0]
+    buildable_node = action_node.getiterator("BuildableReference")[0]
+    target_hash = buildable_node.get("BlueprintIdentifier")
+    product_name = buildable_node.get("BlueprintName")
 
     pbxproj_plist = NSDictionary.dictionaryWithContentsOfFile_(pbxfile)['objects']
-    build_conf_for_target = [pbxproj_plist[hashf]['buildConfigurationList'] for hashf in pbxproj_plist if pbxproj_plist[hashf]['isa'] == "PBXNativeTarget" and pbxproj_plist[hashf]['name'] == native_target][0]
+    build_conf_for_target = pbxproj_plist[target_hash]['buildConfigurationList']
     build_conf_list = pbxproj_plist[build_conf_for_target]['buildConfigurations']
     build_conf_dict_for_target = [pbxproj_plist[build_conf] for build_conf in build_conf_list if pbxproj_plist[build_conf]['name'] == configuration][0]
 
@@ -57,15 +69,15 @@ def build_settings_dict(pbxfile, native_target, configuration):
 
     atom = PBXAtom(conf_atom)
 
-    return atom
+    return atom, product_name
 
-def get_plist_path_from_pbxfile(pbxfile, native_target, configuration):
+def get_plist_path_from_pbxfile(pbxfile, scheme, build_action, configuration):
 
-    conf_dict = build_settings_dict(pbxfile, native_target, configuration)
+    conf_dict, product_name = build_settings_dict(pbxfile, scheme, build_action, configuration)
     info_plist_path = conf_dict['INFOPLIST_FILE']
 
     if "${PRODUCT_NAME}" in info_plist_path:
-        info_plist_path = info_plist_path.replace("${PRODUCT_NAME}", native_target)
+        info_plist_path = info_plist_path.replace("${PRODUCT_NAME}", product_name)
 
     return info_plist_path
 
