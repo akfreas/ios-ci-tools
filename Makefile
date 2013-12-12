@@ -15,7 +15,7 @@ travisdist:
 
 travis_uitest:
 	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/setup_site_packages.py
-	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py
+	${COMMON_SCRIPTS_HOME}/bin/python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py build
 
 testflightdist:
 	python ${COMMON_SCRIPTS_HOME}/DistributionBuild.py
