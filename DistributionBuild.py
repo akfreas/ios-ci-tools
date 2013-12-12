@@ -18,8 +18,8 @@ def main():
     print os.listdir("/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs")
 
 
-    if arg_dict['scheme'] == None or arg_dict['configuration'] == None:
-        raise Exception("You must specify at least a scheme and a configuration to build through the command line or by setting the DIST_SCHEME and DIST_CONFIGURATION environment variables")
+    if arg_dict['target'] == None or arg_dict['configuration'] == None:
+        raise Exception("You must specify at least a target and a configuration to build through the command line or by setting the DIST_TARGET and DIST_CONFIGURATION environment variables")
 
     if arg_dict['sdk'] == None:
         sdk = "iphoneos6.0"
@@ -30,7 +30,7 @@ def main():
 
     if len(projfolder) == 1:
         pbxfile = "/".join([projfolder[0], "project.pbxproj"])
-        info_plist_path = utils.get_plist_path_from_pbxfile(pbxfile, arg_dict['scheme'], arg_dict['configuration'])
+        info_plist_path = utils.get_plist_path_from_pbxfile(pbxfile, arg_dict['target'], arg_dict['configuration'])
 
         plist_dict = biplist.readPlist(info_plist_path)
         resource_root = os.path.dirname(os.path.abspath(info_plist_path))
@@ -105,7 +105,7 @@ def command_line_controller():
     parser.add_argument("--version", '-v', dest="version", help="The version number of this release version (bundle version).")
     parser.add_argument("--bundle_id", '-b', dest="bundle_id", help="Desired bundle id of this version.")
     parser.add_argument("--configuration", '-c', dest="configuration", help="The configuration to build the target with.")
-    parser.add_argument("--scheme", '-t', dest="scheme", help="The scheme to use to build the project.")
+    parser.add_argument("--target", '-t', dest="target", help="The target to build the project for.")
     parser.add_argument("--sdk", '-s', dest="sdk", help="SDK to build the target with.")
     parser.add_argument("--xcconfig", '-x', dest="xcconfig", help="xcconfig file to use for building target.")
     parser.add_argument("--additional-build-vars", '-a', dest="additional_vars", help="Additional variables to build project with.", required=False)
@@ -122,7 +122,7 @@ def command_line_controller():
     arg_dict['additional_vars'] = arguments.additional_vars or os.getenv("ADDITIONAL_VARS")
 
     arg_dict['bundle_id'] = arguments.bundle_id or os.getenv("DIST_BUNDLE_ID")
-    arg_dict['scheme'] = arguments.scheme or os.getenv("DIST_SCHEME")
+    arg_dict['target'] = arguments.target or os.getenv("DIST_TARGET")
     arg_dict['configuration'] = arguments.configuration or os.getenv("DIST_CONFIGURATION")
     arg_dict['sdk'] = arguments.sdk or os.getenv("DIST_SDK")
     arg_dict['xcconfig'] = arguments.xcconfig or os.getenv("DIST_XCCONFIG")

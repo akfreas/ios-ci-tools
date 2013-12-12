@@ -7,7 +7,7 @@ import pystache
 
 def create_build_command(commands = ['build'], preprocessor_definitions=None,  **kwargs) :
 
-    build_command = "xctool"
+    build_command = "xcodebuild"
     for flag in kwargs.keys():
         build_command += " -%s %s " % (flag, kwargs[flag])
 
