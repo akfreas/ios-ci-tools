@@ -2,6 +2,5 @@
 
 gem install cocoapods
 pod install
-cd ./Pods
-xcodebuild
+xctool -project Pods/Pods.xcodeproj -scheme $1
 cd ../
