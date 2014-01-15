@@ -55,8 +55,11 @@ def create_app(product_name, note, spout_url, tags=[]) :
 
     retval = None
     if app_response.status_code == 200:
-        response_json = app_response.json()
-        retval = response_json['new_app_id']
+        try:
+            response_json = app_response.json()
+            retval = response_json['new_app_id']
+        except:
+            print "Error parsing response json. %s" % response_json
     return retval
 
     
