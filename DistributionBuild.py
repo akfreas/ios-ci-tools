@@ -66,7 +66,7 @@ def main():
 
 
 
-    if (arg_dict['xcconfig']):
+    if (arg_dict['xcconfig'] is not None):
 
         current_date = datetime.now() 
         expiry_date = current_date + timedelta(30)
@@ -74,6 +74,8 @@ def main():
         template_vars = {'kill_day' : expiry_date.month, 'kill_year' : expiry_date.year, 'kill_month' : expiry_date.month }
         temp_config_path = utils.format_file_with_vars(arg_dict['xcconfig'], template_vars)
         arg_dict['xcconfig'] = temp_config_path
+    else:
+        del(arg_dict['xcconfig'])
 
     if "version" in arg_dict.keys():
         del(arg_dict['version'])
